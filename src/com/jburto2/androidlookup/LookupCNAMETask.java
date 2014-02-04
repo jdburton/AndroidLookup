@@ -18,7 +18,7 @@ import android.os.AsyncTask;
  * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
  * 
  */
-public class LookupAddressTask extends AsyncTask<String, Void, String> 
+public class LookupCNAMETask extends AsyncTask<String, Void, String> 
 {
 	/**
 	 * @var Exception exception
@@ -50,19 +50,8 @@ public class LookupAddressTask extends AsyncTask<String, Void, String>
     	{
     		///Found NSLookup from http://www.coderanch.com/t/328875/java/java/nslookup-Java
     		///More on inet addresses from http://download.java.net/jdk7/archive/b123/docs/api/java/net/InetAddress.html 
- 
-    		
-    		if (isIP(url))
-    		{
-    			InetAddress ipAddress = InetAddress.getByName(url);
-				return ipAddress.getHostName();
-    		}
-    		else
-    		{
-    			InetAddress ipAddress = InetAddress.getByName(url);
-				return ipAddress.getHostAddress();
-    		}
-    		
+    		InetAddress ipAddress = InetAddress.getByName(url);
+			return ipAddress.getHostName();
     	}
     	catch(UnknownHostException e)
     	{

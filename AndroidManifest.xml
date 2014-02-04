@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jburto2.androidlookup.DisplayMessageActivity"
+            android:name="com.jburto2.androidlookup.DisplayInfoActivity"
             android:label="@string/title_activity_about_message"
             android:parentActivityName="com.jburto2.androidlookup.MainActivity" >
             <meta-data

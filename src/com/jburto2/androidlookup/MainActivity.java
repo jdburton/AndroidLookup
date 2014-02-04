@@ -1,6 +1,6 @@
 package com.jburto2.androidlookup;
 
-import com.jburto2.androidlookup.DisplayMessageActivity;
+import com.jburto2.androidlookup.DisplayInfoActivity;
 import com.jburto2.androidlookup.LookupAddressTask;
 import com.jburto2.androidlookup.R;
 
@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 
 	
 	@Override
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -40,32 +41,46 @@ public class MainActivity extends Activity {
 	    switch (item.getItemId()) {
 	   
 	    case R.id.action_about:
-	    	Intent intent = new Intent(this, DisplayMessageActivity.class);
+	    	Intent intent = new Intent(this, DisplayInfoActivity.class);
 	    	startActivity(intent);
 
 	    }
 	    return true;
 	}
 
+	/**
+	 *  @fn public void clearIPAddressMessage(View view)
+	 *  @brief Clear the fields. This should be the registered response to the "clear" button for the IP Address.
+	 *  Learned how to clear a field from http://stackoverflow.com/questions/8758635/how-to-clear-the-edittext-when-onclick-on-button
+	 * @param view
+	 */
 
 	public void clearIPAddressMessage(View view) {
-        // Clear the fields. This should be the registered response to the "clear" button.
-    	// Learned how to clear a field from http://stackoverflow.com/questions/8758635/how-to-clear-the-edittext-when-onclick-on-button
     	EditText ipText = (EditText) findViewById(R.id.editIPAddress);
     	ipText.setText("");
 
     
     }
 	
+	/**
+	 * @fn void clearHostNameMessage(View view)
+	 * @brief Clear the fields. This should be the registered response to the "clear" button for the Hostname button.
+	 * Learned how to clear a field from http://stackoverflow.com/questions/8758635/how-to-clear-the-edittext-when-onclick-on-button
+	 * @param view
+	 */
 	public void clearHostNameMessage(View view) {
-        // Clear the fields. This should be the registered response to the "clear" button.
-		// Learned how to clear a field from http://stackoverflow.com/questions/8758635/how-to-clear-the-edittext-when-onclick-on-button
 		EditText urlText = (EditText) findViewById(R.id.editHostName);
 		urlText.setText("");
 		
     
     }
 
+	/**
+	 * @fn public void lookupMessage(View view)
+	 * @brief Looks up the url or the IP address. This should be the registered response to the "lookup" button.
+	 * Note: The actual lookup is done on a separate thread.
+	 * @param view
+	 */
 	
     public void lookupMessage(View view) 
     {
@@ -140,9 +155,14 @@ public class MainActivity extends Activity {
 		}
     	
     }
+    /**
+     * @fn public void displayToast(String message)
+     * @brief Displays a popup "Toast" message to the user.
+     * Displaying toasts from http://developer.android.com/guide/topics/ui/notifiers/toasts.html
+     * @param message Message to display
+     */
     public void displayToast(String message)
     {
-    	// displaying toasts from http://developer.android.com/guide/topics/ui/notifiers/toasts.html
     	Context context = this.getApplicationContext();
 		int duration = Toast.LENGTH_SHORT;
 		
