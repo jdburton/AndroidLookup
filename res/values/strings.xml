@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroidLookup</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_about">Info</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="lookup">Lookup Address</string>
+    <string name="clear">Clear All</string>
+	<string name="sitename">Host Name</string>
+    <string name="ip_address">IP Address</string>
+    <string name="about_text">
+    Android Lookup\n
+	\n
+	This is an Android utility based on the *nix utility nslookup.\n
+    \n
+    To lookup an IP Address:\n
+    Enter a hostname in the \"Host Name\" field. Then press the lookup button. The IP Address will be displayed in the \"IP Address\" field.\n
+    \n
+    To lookup a Host Name:\n
+    Enter an IP Address in the \"IP Address\" field. Then press the lookup button. The hostname will be displayed in the \"Host Name\" field.\n
+    \n
+    Note:\n
+    Sometimes the hostname lookup may return an unexpected hostname for an IP Address. This is because a single IP Address will often have one Canonical (true) hostname, but many aliases.\n
+    \n
+    See http://en.wikipedia.org/wiki/Canonical_name_record\n
+    Acknowledgments:\n
+    \n
+    Special thanks to:\n
+    John Ingram and Greg Edison in Clemson University\'s CPSC 481/681 class.\n
+    \n
+    developer.android.com\n
+    stackoverflow.com\n
+    coderanch.com\n
+    Wikimedia Commons\n
+    iconarchive.com\n
+    \n
+    Full Acknowledgements can be found at:\n
+    http://jamesdalyburton.wordpress.com/2014/01/26/assignment-1-android-lookup/
+    </string>
+     <string name="title_activity_about_message">About Android Lookup</string>
+    
+</resources>
