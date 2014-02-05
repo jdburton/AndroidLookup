@@ -7,31 +7,24 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
 
-import android.os.AsyncTask;
-
 
 /**
  * @author James Burton
  * 
  * @class LookupAddressTask 
- * @brief This class is an AsyncTask that looks up a hostname given an IP address and an IP address if given a hostname.
+ * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
  * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
  * 
  */
-public class LookupAddressTask extends AsyncTask<String, Void, String> 
+public class LookupAddressTask extends LookupTask
 {
-	/**
-	 * @var Exception exception
-	 * @brief This holds any exception generated from the lookup call.
-	 */
-	
-	public Exception  exception;
+
 	
 	
 	/**
 	 * @fn protected String doInBackground(String... urls)
 	 * 
-	 * @brief This function uses java.net.InetAddress to lookup either the hostname or the ipaddress.
+	 * @brief This function uses java.net.InetAddress to lookup all the ipaddresses for a given host.
 	 * 
 	 *  
 	 * 
@@ -50,18 +43,16 @@ public class LookupAddressTask extends AsyncTask<String, Void, String>
     	{
     		///Found NSLookup from http://www.coderanch.com/t/328875/java/java/nslookup-Java
     		///More on inet addresses from http://download.java.net/jdk7/archive/b123/docs/api/java/net/InetAddress.html 
- 
+
+    		InetAddress ipAddresses[] = InetAddress.getAllByName(url);
+    		StringBuffer strbuf = new StringBuffer("");
     		
-    		if (isIP(url))
+    		for(int i = 0; i < ipAddresses.length; i++ )
     		{
-    			InetAddress ipAddress = InetAddress.getByName(url);
-				return ipAddress.getHostName();
+    			
+    			strbuf.append(ipAddresses[i].getHostAddress()+";");
     		}
-    		else
-    		{
-    			InetAddress ipAddress = InetAddress.getByName(url);
-				return ipAddress.getHostAddress();
-    		}
+			return strbuf.toString();
     		
     	}
     	catch(UnknownHostException e)
@@ -69,6 +60,7 @@ public class LookupAddressTask extends AsyncTask<String, Void, String>
     		this.exception = e;
         	return null;
         } 
+    	
     }
     
     /**
@@ -93,7 +85,7 @@ public class LookupAddressTask extends AsyncTask<String, Void, String>
      * @return true if an IP address.
      * @return false if not an IP address.
      */
-	public static boolean isIP(String input) throws UnknownHostException
+	protected static boolean isIP(String input) throws UnknownHostException
 	{
 		//break up the address into tokens
 		StringTokenizer strtok = new StringTokenizer(input,".");

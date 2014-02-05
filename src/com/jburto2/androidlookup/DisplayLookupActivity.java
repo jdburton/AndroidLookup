@@ -3,14 +3,23 @@
  */
 package com.jburto2.androidlookup;
 
+import java.util.StringTokenizer;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 
 /**
@@ -29,7 +38,7 @@ public class DisplayLookupActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_display_info);
+		setContentView(R.layout.activity_display_lookup);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // Show the Up button in the action bar.
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -37,11 +46,94 @@ public class DisplayLookupActivity extends Activity {
 
         // Get the IP address
         // Get the cName
-        // Get the aliases
         // IP address = IP field
         // cname = cname field
         // aliases = dynamic table
+        
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String lookupName = intent.getStringExtra(MainActivity.LOOKUP_NAME);
+        String ipAddresses = intent.getStringExtra(MainActivity.IP_ADDRESSES);
+        String cname = intent.getStringExtra(MainActivity.CNAME);
+
+        /// Create the table layout
+        /// From: http://developer.android.com/reference/android/widget/TableLayout.html
+        /// More information at: http://stackoverflow.com/questions/18207470/adding-table-rows-dynamically-in-android
+        /// How to separate lines in TableLayout http://stackoverflow.com/questions/5092116/how-can-i-add-separating-lines-between-my-tablerows-that-are-created-programmati
+   
+        // Table layout
+        TableLayout tableLayout = new TableLayout(this);
+        int index = 0;
+        
+        // First row: Entered data
+        TableRow tableRow = TableLayoutUtils.createTableRow(this);
+        
+        
+        // Create label       
+        TextView textView = TableLayoutUtils.createTextView(this, "Hostname", 15, Color.rgb(255, 255, 255), Color.rgb(51, 51, 51));
+        tableRow.addView(textView);
+        // Vertical line
+        View v_line = TableLayoutUtils.createVerticalLine(this, Color.rgb(0,0,255));
+        tableRow.addView(v_line);
+        // Data
+        textView = TableLayoutUtils.createTextView(this, lookupName, 20, Color.rgb(51, 51, 51),Color.rgb(255, 255, 255));
+        tableRow.addView(textView);
+        tableLayout.addView(tableRow);  
+ 
+        // Horizontal Line
+        View h_line = TableLayoutUtils.createHorizontalLine(this,Color.rgb(51, 51, 51));
+        tableLayout.addView(h_line);
+        
+        // Second row: IP Addresses
+        tableRow = TableLayoutUtils.createTableRow(this);
+        
+        // Create label       
+        textView = TableLayoutUtils.createTextView(this, "IP Addresses", 15, Color.rgb(255, 255, 255), Color.rgb(0, 127, 0));
+        tableRow.addView(textView);
+        // Vertical line
+        v_line = TableLayoutUtils.createVerticalLine(this, Color.rgb(0,127,0));
+        tableRow.addView(v_line);
+        
+        // Data        
+        StringTokenizer strtok = new StringTokenizer(ipAddresses,";"); 
+        
+        while (strtok.hasMoreTokens())
+        {
+
+        	textView = TableLayoutUtils.createTextView(this, strtok.nextToken(), 20, Color.rgb(51, 51, 51),Color.rgb(255, 255, 255));
+            tableRow.addView(textView);
+            v_line = TableLayoutUtils.createVerticalLine(this, Color.rgb(0,127,0));
+            tableRow.addView(v_line);
+          
+        }
+        tableLayout.addView(tableRow);
+        
+        // Horizontal Line
+        h_line = TableLayoutUtils.createHorizontalLine(this,Color.rgb(51, 51, 51));
+        tableLayout.addView(h_line);
+              
+        // Third Row: Canonical Name
+        tableRow = TableLayoutUtils.createTableRow(this);
+        
+        // Create label       
+        textView = TableLayoutUtils.createTextView(this, "CNAME", 15, Color.rgb(255, 255, 255), Color.rgb(0, 0, 127));
+        tableRow.addView(textView);
+        // Vertical line
+        v_line = TableLayoutUtils.createVerticalLine(this, Color.rgb(0,0,127));
+        tableRow.addView(v_line);
+
+        // Data
+        textView = TableLayoutUtils.createTextView(this, cname, 20, Color.rgb(51, 51, 51),Color.rgb(255, 255, 255));
+        tableRow.addView(textView);
+        
+        tableLayout.addView(tableRow); 
+        // Set the text view as the activity layout
+        setContentView(tableLayout);
 	}
+	
+
+	
+	
 
 	/**
 	 * @fn private void setupActionBar()

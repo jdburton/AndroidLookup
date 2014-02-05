@@ -38,7 +38,8 @@
     Full Acknowledgements can be found at:\n
     http://jamesdalyburton.wordpress.com/2014/01/26/assignment-1-android-lookup/
     </string>
-     <string name="title_activity_about_message">About Android Lookup</string>
+     <string name="title_activity_about_message">About AndroidLookup</string>
+     <string name="title_activity_lookup_message">AndroidLookup Results</string>
      <string name="cname">CName</string>
     
 </resources>

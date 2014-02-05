@@ -1,5 +1,6 @@
 package com.jburto2.androidlookup;
 
+
 import com.jburto2.androidlookup.DisplayInfoActivity;
 import com.jburto2.androidlookup.LookupAddressTask;
 import com.jburto2.androidlookup.R;
@@ -18,6 +19,10 @@ import android.content.Intent;
 
 
 public class MainActivity extends Activity {
+	
+	public final static String IP_ADDRESSES = "com.jburto2.androidlookup.IP_ADDRESSES";
+	public final static String CNAME = "com.jburto2.androidlookup.CNAME";
+	public final static String LOOKUP_NAME = "com.jburto2.androidlookup.LOOKUP_NAME";
 
 	
 	@Override
@@ -87,65 +92,65 @@ public class MainActivity extends Activity {
         // EditText object for url
     	EditText urlText = (EditText) findViewById(R.id.editHostName);
     	
-    	// EditText object for ip address
-    	EditText ipText = (EditText) findViewById(R.id.editIPAddress);
-    	
     	// pointer to lookupString
     	String lookupString = null;
     	
-    	// pointer to output field for results.
-    	EditText resultText = null;
-    	
-    	// See which field is empty to figure out what we're looking for.
-    	if (ipText.getText().toString().equals(""))
-    	{
-    		if (urlText.getText().toString().equals(""))
+    	//Results from tasks
+    	String ipAddressesArray = null;
+    	String cNameString = null;
+     	
+    	if (urlText.getText().toString().equals(""))
         	{
     			//both are empty, display message
     			displayToast("Please enter either a hostname or IP address to lookup.");
         		return;
         	}
-    		else
+    	else
     		{
     		// ip text is empty. Look up name.
     		lookupString = urlText.getText().toString();
-    		resultText = ipText;
+    		//resultText = ipText;
     		}
-    	}
-    	else if (urlText.getText().toString().equals(""))
-    	{
-    		// urlText is empty, look up ip address
-    		lookupString = ipText.getText().toString();
-    		resultText = urlText;
-    		
-    	}
-    	else 
-    	{
-    		// both fields full. Display error and return.
-    		displayToast("Leave field empty to lookup value.");
-    		return;
-    	}
+    	LookupAddressTask lookupAddressTask = new LookupAddressTask();
+    	ipAddressesArray = runLookupTask(lookupAddressTask,lookupString);
+    	LookupCNAMETask lookupCNAMETask = new LookupCNAMETask();
+    	cNameString = runLookupTask(lookupCNAMETask,lookupString);
     	
+    	
+    	Intent intent = new Intent(this, DisplayLookupActivity.class);
+    	//EditText editText = (EditText) findViewById(R.id.edit_message);
+    	intent.putExtra(IP_ADDRESSES, ipAddressesArray );
+    	intent.putExtra(CNAME, cNameString );
+    	intent.putExtra(LOOKUP_NAME, lookupString);
+    	startActivity(intent);
+    	
+    }	
     	// Must run network on separate thread.
-		LookupAddressTask lookupTask = new LookupAddressTask();
-		AsyncTask<String, Void, String> task = lookupTask.execute(lookupString);
+    private String runLookupTask(LookupTask lookupTask, String lookupString) 
+    {
     	
+    
+		
+		AsyncTask<String, Void, String> task = lookupTask.execute(lookupString);
+    	String result = null;
 		try 
 		{
 			// Get the results of the task.
-			String result = task.get();
+			result = task.get();
 			if (result == null)
 			{
 				// if we didn't get a result, grab the exception and display it as a toast.
-				Exception E = lookupTask.exception;
-	    		String error = E.toString();
+				//Exception E = lookupTask.exception;
+	    		String error = lookupTask.getExceptionMsg();// E.toString();
 				displayToast(error);
 	    	}
-			else 
-			{
+			//else 
+			//{
 				// display the result in the appropriate field.
-				resultText.setText(result);
-			}
+				//resultText.setText(result);
+				//return result;
+				
+			//}
 		
 		}
 		catch (Exception taskE)
@@ -153,6 +158,7 @@ public class MainActivity extends Activity {
 			// display the exception as a toast.
 			displayToast(taskE.toString());
 		}
+		return result;
     	
     }
     /**

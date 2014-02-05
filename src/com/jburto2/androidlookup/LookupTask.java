@@ -3,21 +3,26 @@
  */
 package com.jburto2.androidlookup;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+
+import android.os.AsyncTask;
 
 
 /**
  * @author James Burton
  * 
- * @class LookupAddressTask 
- * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
- * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+ * @class LookupTask 
+ * @brief This class is an AsyncTask that looks up something. 
  * 
  */
-public class LookupCNAMETask extends LookupTask
+public abstract class LookupTask extends AsyncTask<String, Void, String> 
 {
-
+	/**
+	 * @var Exception exception
+	 * @brief This holds any exception generated from the lookup call.
+	 */
+	
+	protected Exception  exception;
+	
 	
 	/**
 	 * @fn protected String doInBackground(String... urls)
@@ -35,21 +40,7 @@ public class LookupCNAMETask extends LookupTask
 	
     protected String doInBackground(String... urls) 
     {
-    	String url = urls[0];
-    	
-    	try 
-    	{
-    		///Found NSLookup from http://www.coderanch.com/t/328875/java/java/nslookup-Java
-    		///More on inet addresses from http://download.java.net/jdk7/archive/b123/docs/api/java/net/InetAddress.html 
-    		InetAddress ipAddress = InetAddress.getByName(url);
-			//return ipAddress.getHostName();
-    		return ipAddress.getCanonicalHostName();
-    	}
-    	catch(UnknownHostException e)
-    	{
-    		this.exception = e;
-        	return null;
-        } 
+    	return null;
     }
     
     /**
@@ -64,5 +55,17 @@ public class LookupCNAMETask extends LookupTask
         // TODO: check this.exception 
         // TODO: do something with the feed
     }
+    
+    public Exception getException()
+    {
+    	return exception;
+    }
+    
+    public String getExceptionMsg()
+    {
+    	return exception.getMessage();
+    }
+
+
 
 }

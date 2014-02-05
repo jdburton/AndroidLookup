@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jburto2.androidlookup"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="2.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -26,6 +26,14 @@
         <activity
             android:name="com.jburto2.androidlookup.DisplayInfoActivity"
             android:label="@string/title_activity_about_message"
+            android:parentActivityName="com.jburto2.androidlookup.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jburto2.androidlookup.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.jburto2.androidlookup.DisplayLookupActivity"
+            android:label="@string/title_activity_lookup_message"
             android:parentActivityName="com.jburto2.androidlookup.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
