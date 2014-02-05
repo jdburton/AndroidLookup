@@ -3,26 +3,22 @@
  */
 package com.jburto2.androidlookup;
 
+import java.io.IOException;
+import java.net.SocketException;
 
-import android.os.AsyncTask;
-
+import org.apache.commons.net.whois.WhoisClient;
 
 /**
  * @author James Burton
  * 
- * @class LookupTask 
- * @brief This class is an AsyncTask that looks up something. 
+ * @class LookupAddressTask 
+ * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
+ * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
  * 
  */
-public abstract class LookupTask extends AsyncTask<String, Void, String> 
+public class LookupWhoisTask extends LookupTask
 {
-	/**
-	 * @var Exception exception
-	 * @brief This holds any exception generated from the lookup call.
-	 */
-	
-	protected Exception  exception;
-	
+
 	
 	/**
 	 * @fn protected String doInBackground(String... urls)
@@ -40,7 +36,33 @@ public abstract class LookupTask extends AsyncTask<String, Void, String>
 	
     protected String doInBackground(String... urls) 
     {
-    	return null;
+    	String url = urls[0];
+    	
+    	/// from http://www.mkyong.com/java/java-whois-example/
+    	
+    	StringBuilder result = new StringBuilder("");
+    	 
+		WhoisClient whois = new WhoisClient();
+		try 
+		{
+ 
+			//default is internic.net
+			whois.connect(WhoisClient.DEFAULT_HOST);
+			String whoisData1 = whois.query("=" + url);
+			result.append(whoisData1);
+			whois.disconnect();
+ 
+		} 
+		catch (SocketException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+ 
+		return result.toString();
     }
     
     /**
@@ -55,19 +77,5 @@ public abstract class LookupTask extends AsyncTask<String, Void, String>
         // TODO: check this.exception 
         // TODO: do something with the feed
     }
-    
-    public Exception getException()
-    {
-    	return exception;
-    }
-    
-    public String getExceptionMsg()
-    {
-    	return exception.getMessage();
-    	
-    }
-
-    
-
 
 }

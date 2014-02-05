@@ -8,24 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DisplayInfoActivity" >
 
-    <EditText
-        android:id="@+id/editIPAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:inputType="none" />
 
-    <TextView
-        android:id="@+id/textViewIPAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewSiteName"
-        android:layout_below="@+id/editIPAddress"
-        android:layout_centerHorizontal="true"
-        android:text="@string/ip_address"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textViewSiteName"
@@ -40,21 +23,9 @@
         android:id="@+id/editHostName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editIPAddress"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textUri" />
-
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewSiteName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:contentDescription="@string/lookup"
-        android:onClick="lookupMessage"
-        android:src="@drawable/internet_icon" />
 
     <!--
          Image button for lookup icon used under Creative Commons license from:  
@@ -71,21 +42,11 @@
         android:onClick="clearHostNameMessage"
         android:src="@android:drawable/ic_delete" />
 
-    <ImageButton
-        android:id="@+id/deleteIPAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editIPAddress"
-        android:layout_toRightOf="@+id/editIPAddress"
-        android:contentDescription="@string/clear"
-        android:onClick="clearIPAddressMessage"
-        android:src="@android:drawable/ic_delete" />
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewIPAddress"
+        android:layout_below="@+id/imageButton1"
         android:layout_centerHorizontal="true"
         android:contentDescription="Internet picture"
         android:src="@drawable/internet1" />
@@ -93,6 +54,36 @@
          Image button for internet picture used under Creative Commons license from:  
      	 http://commons.wikimedia.org/wiki/File:Internet1.jpg
     -->
-    
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editHostName"
+        android:layout_below="@+id/textViewSiteName"
+        android:layout_marginTop="26dp"
+        android:contentDescription="@string/lookup"
+        android:onClick="lookupMessage"
+        android:src="@drawable/internet_icon" />
+   
+   <ImageButton
+       android:id="@+id/imageButton2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBottom="@+id/imageButton1"
+       android:layout_alignRight="@+id/editHostName"
+       android:layout_alignTop="@+id/imageButton1"
+       android:contentDescription="@string/lookup"
+       android:onClick="whoisMessage"
+       android:src="@android:drawable/ic_menu_help" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

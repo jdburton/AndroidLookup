@@ -39,6 +39,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jburto2.androidlookup.MainActivity" />
         </activity>
+                <activity
+            android:name="com.jburto2.androidlookup.DisplayWhoisActivity"
+            android:label="@string/title_activity_whois_message"
+            android:parentActivityName="com.jburto2.androidlookup.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jburto2.androidlookup.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

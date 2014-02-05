@@ -1,24 +1,31 @@
+/**
+ * 
+ */
 package com.jburto2.androidlookup;
+
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
+import android.widget.TextView;
+
+
+/// Learned how to install apache commons from http://stackoverflow.com/questions/2331803/how-to-use-org-apache-commons-lang-namespace-in-java
+/// Learned how to add to build path from http://stackoverflow.com/questions/1334802/how-can-i-use-external-jars-in-an-android-project
+
 
 /**
- * 
  * @author jburton
  *
- * @class DisplayInfoActivity
  */
-
-public class DisplayInfoActivity extends Activity {
-
+public class DisplayWhoisActivity extends Activity {
+	
 	@SuppressLint("NewApi")
 	@Override
 	/**
@@ -30,24 +37,31 @@ public class DisplayInfoActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_display_info);
+		setContentView(R.layout.activity_display_whois);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // Show the Up button in the action bar.
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Write the message in the resources
-        String message = getResources().getString(R.string.about_text);
 
-        // Create the text view - html style.
-        /// Webview information at http://stackoverflow.com/questions/3295381/android-html-resource-with-references-to-other-resources
-        WebView webView = new WebView(this);
         
-        webView.loadUrl(message);
+        // Get the message from the intent
+        Intent intent = getIntent();
+   
+        String whoisInfo = intent.getStringExtra(MainActivity.WHOIS_INFO);
+        
+        // Get and set the text view.
+        TextView textView = (TextView) findViewById(R.id.whoisTextView);
+        textView.setTextSize(15);
+        textView.setText(whoisInfo);
 
-        // Set the text view as the activity layout
-        setContentView(webView);
+
+
 	}
+	
+
+	
+	
 
 	/**
 	 * @fn private void setupActionBar()
@@ -95,8 +109,13 @@ public class DisplayInfoActivity extends Activity {
 
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+	    case R.id.action_about:
+	    	Intent intent = new Intent(this, DisplayInfoActivity.class);
+	    	startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+
 
 }

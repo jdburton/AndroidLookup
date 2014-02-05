@@ -1,20 +1,19 @@
 package com.jburto2.androidlookup;
 
 
-import com.jburto2.androidlookup.DisplayInfoActivity;
-import com.jburto2.androidlookup.LookupAddressTask;
-import com.jburto2.androidlookup.R;
-
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.content.Context;
-import android.content.Intent;
 
 
 
@@ -23,6 +22,8 @@ public class MainActivity extends Activity {
 	public final static String IP_ADDRESSES = "com.jburto2.androidlookup.IP_ADDRESSES";
 	public final static String CNAME = "com.jburto2.androidlookup.CNAME";
 	public final static String LOOKUP_NAME = "com.jburto2.androidlookup.LOOKUP_NAME";
+	public final static String PING_RESULTS = "com.jburto2.androidlookup.PING_RESULTS";
+	public final static String WHOIS_INFO = "com.jburto2.androidlookup.WHOIS_INFO";
 
 	
 	@Override
@@ -53,19 +54,6 @@ public class MainActivity extends Activity {
 	    return true;
 	}
 
-	/**
-	 *  @fn public void clearIPAddressMessage(View view)
-	 *  @brief Clear the fields. This should be the registered response to the "clear" button for the IP Address.
-	 *  Learned how to clear a field from http://stackoverflow.com/questions/8758635/how-to-clear-the-edittext-when-onclick-on-button
-	 * @param view
-	 */
-
-	public void clearIPAddressMessage(View view) {
-    	EditText ipText = (EditText) findViewById(R.id.editIPAddress);
-    	ipText.setText("");
-
-    
-    }
 	
 	/**
 	 * @fn void clearHostNameMessage(View view)
@@ -98,11 +86,16 @@ public class MainActivity extends Activity {
     	//Results from tasks
     	String ipAddressesArray = null;
     	String cNameString = null;
+    	String pingString = null;
+    	
+    	/// About progress bars: http://stackoverflow.com/questions/11099012/android-spin-refresh-button-while-reloading
+    	ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
+    	
      	
     	if (urlText.getText().toString().equals(""))
         	{
-    			//both are empty, display message
-    			displayToast("Please enter either a hostname or IP address to lookup.");
+    			//both are empty, display message    		
+    			displayMessageDialog("Please enter either a hostname or IP address to lookup.","No Value");
         		return;
         	}
     	else
@@ -111,17 +104,92 @@ public class MainActivity extends Activity {
     		lookupString = urlText.getText().toString();
     		//resultText = ipText;
     		}
+    	pb.setVisibility(View.VISIBLE);
     	LookupAddressTask lookupAddressTask = new LookupAddressTask();
     	ipAddressesArray = runLookupTask(lookupAddressTask,lookupString);
+    	// if we can't find any ipAddresses, return now.
+    	if (ipAddressesArray == null)
+    	{
+    		pb.setVisibility(View.GONE);
+    		return;
+    	}
+    	
+    	
     	LookupCNAMETask lookupCNAMETask = new LookupCNAMETask();
     	cNameString = runLookupTask(lookupCNAMETask,lookupString);
-    	
+
+    	// if we can't find any ipAddresses, return now.
+    	if (cNameString == null)
+    	{
+    		pb.setVisibility(View.GONE);
+    		return;
+    	}
+
+    	LookupPingTask lookupPingTask = new LookupPingTask();
+    	pingString = runLookupTask(lookupPingTask,lookupString);
     	
     	Intent intent = new Intent(this, DisplayLookupActivity.class);
+    	
+    	
     	//EditText editText = (EditText) findViewById(R.id.edit_message);
     	intent.putExtra(IP_ADDRESSES, ipAddressesArray );
     	intent.putExtra(CNAME, cNameString );
     	intent.putExtra(LOOKUP_NAME, lookupString);
+    	intent.putExtra(PING_RESULTS, pingString);
+    	pb.setVisibility(View.GONE);
+    	startActivity(intent);
+    	
+    }	
+	/**
+	 * @fn public void whoisMessage(View view)
+	 * @brief Gets the whois information for the host. This should be the registered response to the "whois" button.
+	 * Note: The actual lookup is done on a separate thread.
+	 * @param view
+	 */
+	
+    public void whoisMessage(View view) 
+    {
+        // EditText object for url
+    	EditText urlText = (EditText) findViewById(R.id.editHostName);
+    	
+    	// pointer to lookupString
+    	String lookupString = null;
+    	
+    	//Results from tasks
+    	String whoisInfoString = null;
+
+    	
+    	/// About progress bars: http://stackoverflow.com/questions/11099012/android-spin-refresh-button-while-reloading
+    	ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
+    	
+     	
+    	if (urlText.getText().toString().equals(""))
+        	{
+    			//both are empty, display message    		
+    			displayMessageDialog("Please enter either a hostname or IP address to lookup.","No Value");
+        		return;
+        	}
+    	else
+    		{
+    		lookupString = urlText.getText().toString();    		
+    		}
+    	pb.setVisibility(View.VISIBLE);
+    	LookupWhoisTask lookupWhoisTask = new LookupWhoisTask();
+    	whoisInfoString = runLookupTask(lookupWhoisTask,lookupString);
+    	
+    	if (whoisInfoString == null)
+    	{
+    		pb.setVisibility(View.GONE);
+    		return;
+    	}
+    	
+    	Intent intent = new Intent(this, DisplayWhoisActivity.class);
+    	
+    	
+    	
+    	intent.putExtra(WHOIS_INFO, whoisInfoString );
+
+    	pb.setVisibility(View.GONE);
     	startActivity(intent);
     	
     }	
@@ -141,8 +209,9 @@ public class MainActivity extends Activity {
 			{
 				// if we didn't get a result, grab the exception and display it as a toast.
 				//Exception E = lookupTask.exception;
-	    		String error = lookupTask.getExceptionMsg();// E.toString();
-				displayToast(error);
+	    		String message = lookupTask.getExceptionMsg();// E.toString();
+	    		String title = lookupTask.getException().toString();
+				displayMessageDialog(message,title);
 	    	}
 			//else 
 			//{
@@ -156,7 +225,9 @@ public class MainActivity extends Activity {
 		catch (Exception taskE)
 		{
 			// display the exception as a toast.
-			displayToast(taskE.toString());
+    		String message = taskE.getMessage();// E.toString();
+    		String title = taskE.toString();
+			displayMessageDialog(message,title);
 		}
 		return result;
     	
@@ -175,4 +246,48 @@ public class MainActivity extends Activity {
 		Toast toast = Toast.makeText(context, message, duration);
 		toast.show();
     }
+    
+    /**
+     * @fn public void displayMessageDialog(String message, String Title)
+     * @brief Displays a message dialog to the user.
+     * Displaying message dialogs from http://www.mkyong.com/android/android-alert-dialog-example/
+     * @param message Message to display
+     * @param title Title of dialog
+     * 
+     */
+    
+    public void displayMessageDialog(String message, String title)
+    {
+    	
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+ 
+		// set title
+		if (title == null)
+		{
+			title = "Message";
+		}
+		alertDialogBuilder.setTitle(title);
+ 
+		// set dialog message
+		alertDialogBuilder
+				.setMessage(message)
+				.setCancelable(false)
+				.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+					}
+				  })
+				;
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
+    }
+    
+    
+    
 }

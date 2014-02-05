@@ -20,20 +20,19 @@
 	        android:scrollbars="horizontal|vertical" 
 	        android:layout_width="wrap_content"     
 	        android:layout_marginTop="5dip">
-	
-	        <TableLayout
-	            
+
+	        <TextView
+	            android:id="@+id/whoisTextView"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:id="@+id/tlGridTable"
-	            android:layout_marginTop="0dip"
-	            android:layout_marginBottom="0dip"
-	            android:layout_marginLeft="0dip"
-	            android:layout_marginRight="0dip" >   
-	        </TableLayout>
+	             />
+
 	    </HorizontalScrollView>
+
+
 	</ScrollView>
-</LinearLayout>
-<!-- 
+	<!-- 
 Scrolling table from 
 http://stackoverflow.com/questions/16623337/how-to-scroll-table-layout-in-horizontal-and-vertical-in-android -->
+	
+</LinearLayout>
