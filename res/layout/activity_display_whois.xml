@@ -32,7 +32,8 @@
 
 	</ScrollView>
 	<!-- 
-Scrolling table from 
-http://stackoverflow.com/questions/16623337/how-to-scroll-table-layout-in-horizontal-and-vertical-in-android -->
+		Scrolling table from 
+		http://stackoverflow.com/questions/16623337/how-to-scroll-table-layout-in-horizontal-and-vertical-in-android 
+	-->
 	
 </LinearLayout>

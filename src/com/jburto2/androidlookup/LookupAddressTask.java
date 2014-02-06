@@ -12,8 +12,7 @@ import java.util.StringTokenizer;
  * @author James Burton
  * 
  * @class LookupAddressTask 
- * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
- * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+ * @brief This class is an LookupTask that looks up all IP addresses for a if given a hostname.
  * 
  */
 public class LookupAddressTask extends LookupTask
@@ -24,12 +23,12 @@ public class LookupAddressTask extends LookupTask
 	/**
 	 * @fn protected String doInBackground(String... urls)
 	 * 
-	 * @brief This function uses java.net.InetAddress to lookup all the ipaddresses for a given host.
+	 * @brief This function uses java.net.InetAddress to lookup all the ipAddresses for a given host.
 	 * 
-	 *  
+	 * 
 	 * 
 	 * @param urls Array of strings that are arguments to the function. url[0] is the address to lookup.
-	 * @return String that represents either the IP address or the hostname if call succeeded.
+	 * @return String that represents all the IP addresses for the host with ';' delimiter.
 	 * @return null If the call failed. 
 	 * @exception Exception generated from InetAddress call is stored in the public instance variable exception.
 	 * 

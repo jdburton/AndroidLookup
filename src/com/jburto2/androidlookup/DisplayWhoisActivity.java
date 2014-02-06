@@ -16,12 +16,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-/// Learned how to install apache commons from http://stackoverflow.com/questions/2331803/how-to-use-org-apache-commons-lang-namespace-in-java
-/// Learned how to add to build path from http://stackoverflow.com/questions/1334802/how-can-i-use-external-jars-in-an-android-project
 
 
 /**
  * @author jburton
+ * @class DisplayWhoisActivity
+ * 
+ * @brief This class sets up the activity that displays the whois info.
+ * 
+ * How to install apache commons from http://stackoverflow.com/questions/2331803/how-to-use-org-apache-commons-lang-namespace-in-java
+ * How to add to build path from http://stackoverflow.com/questions/1334802/how-can-i-use-external-jars-in-an-android-project
  *
  */
 public class DisplayWhoisActivity extends Activity {
@@ -31,6 +35,10 @@ public class DisplayWhoisActivity extends Activity {
 	/**
 	 * @fn onCreate(Bundle savedInstanceState)
 	 * @brief Called when the activity is created. 
+	 * 
+	 * When the DisplayWhois is created, this method enables the home/up button and sets the view to the activity_display_whois. 
+	 * The activity_display_whois view contains an TextView that is the child of a HorizontalScrollView which is the child of a ScrollView to support scrolling.
+	 * The output from the whois task is displayed on the TextView
 	 * 
 	 * @param savedInstanceState The instance state  
 	 */
@@ -62,11 +70,11 @@ public class DisplayWhoisActivity extends Activity {
 
 	
 	
-
 	/**
 	 * @fn private void setupActionBar()
 	 * 
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 * This enables the up/home button to allow users to return to the main screen.
 	 * 
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -89,7 +97,6 @@ public class DisplayWhoisActivity extends Activity {
 		return true;
 	}
 
-	@Override
 	/**
 	 * @fn onOptionsItemSelected(MenuItem item) 
 	 * This ID represents the Home or Up button. In the case of this
@@ -101,6 +108,7 @@ public class DisplayWhoisActivity extends Activity {
 	 * 
 	 * @param item The MenuItem
 	 * @return If Home or Up, navigate up and return true.
+	 * @return Info, show the Info view. 
 	 * @return Otherwise, parent class functionality.
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {

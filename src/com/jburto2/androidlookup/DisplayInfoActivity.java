@@ -15,6 +15,8 @@ import android.webkit.WebView;
  * @author jburton
  *
  * @class DisplayInfoActivity
+ * 
+ * @brief This class controls activities related to the Info View. 
  */
 
 public class DisplayInfoActivity extends Activity {
@@ -22,10 +24,14 @@ public class DisplayInfoActivity extends Activity {
 	@SuppressLint("NewApi")
 	@Override
 	/**
-	 * @fn onCreate(Bundle savedInstanceState)
-	 * @brief Called when the activity is created. 
+	 * @fn protected void onCreate(Bundle savedInstanceState)
+	 * @brief Method called when activity is created. 
+	 * This method sets the content view to activity_display_info, then creates an WebView view on which it displays the help information.
+	 * The help information is stored in an an HTML file in the assets directory. R.string.about_text gives the location of the file.
 	 * 
-	 * @param savedInstanceState The instance state  
+	 * More on scrolling from 	http://stackoverflow.com/questions/16623337/how-to-scroll-table-layout-in-horizontal-and-vertical-in-android 
+	 * 
+	 * @param savedInstanceState
 	 */
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,7 @@ public class DisplayInfoActivity extends Activity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Write the message in the resources
+        // The about_text resource is the location of the HTML file.
         String message = getResources().getString(R.string.about_text);
 
         // Create the text view - html style.
@@ -53,6 +59,7 @@ public class DisplayInfoActivity extends Activity {
 	 * @fn private void setupActionBar()
 	 * 
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 * This enables the up/home button to allow users to return to the main screen.
 	 * 
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)

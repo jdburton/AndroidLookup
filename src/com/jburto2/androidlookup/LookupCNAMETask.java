@@ -10,9 +10,8 @@ import java.net.UnknownHostException;
 /**
  * @author James Burton
  * 
- * @class LookupAddressTask 
- * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
- * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+ * @class LookupCNAMETask 
+ * @brief This class is an LookupTask that uses java.net.InetAddress to looks up the Canonical Name of a host.
  * 
  */
 public class LookupCNAMETask extends LookupTask
@@ -22,12 +21,11 @@ public class LookupCNAMETask extends LookupTask
 	/**
 	 * @fn protected String doInBackground(String... urls)
 	 * 
-	 * @brief This function uses java.net.InetAddress to lookup either the hostname or the ipaddress.
-	 * 
-	 *  
+	 * @brief This function uses java.net.InetAddress to lookup the Canonical Name (CNAME) of a server
+	 * @brief This takes either a hostname an ipaddress.
 	 * 
 	 * @param urls Array of strings that are arguments to the function. url[0] is the address to lookup.
-	 * @return String that represents either the IP address or the hostname if call succeeded.
+	 * @return String that represents the CNAME if call succeeded.
 	 * @return null If the call failed. 
 	 * @exception Exception generated from InetAddress call is stored in the public instance variable exception.
 	 * 

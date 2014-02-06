@@ -15,35 +15,85 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-
+/**
+ * 
+ * @author jburton
+ *
+ * @class MainActivity
+ * 
+ * @brief This class implements functionality for the main activity in Android Lookup. Start here.
+ */
 
 public class MainActivity extends Activity {
 	
+	/**
+	 * @var public final static String IP_ADDRESSES
+	 * @brief Stores the ip_addresses returned from LookupAddressTask
+	 */
 	public final static String IP_ADDRESSES = "com.jburto2.androidlookup.IP_ADDRESSES";
+	/**
+	 * @var public final static String CNAME
+	 * @brief Stores the CNAME returned from LookupCNAMETask
+	 */
 	public final static String CNAME = "com.jburto2.androidlookup.CNAME";
+	/**
+	 * @var public final static String LOOKUP_NAME
+	 * @brief Stores the hostname that the user enters on the main screen.
+	 */
 	public final static String LOOKUP_NAME = "com.jburto2.androidlookup.LOOKUP_NAME";
+	/**
+	 * @var public final static String PING_RESULTS
+	 * @brief Stores "Yes" or "No" result from LookupPingTask
+	 */
 	public final static String PING_RESULTS = "com.jburto2.androidlookup.PING_RESULTS";
+	/**
+	 * @var public final static String WHOIS_INFO
+	 * @brief Stores the whois request returned from WHOIS_INFO
+	 */
 	public final static String WHOIS_INFO = "com.jburto2.androidlookup.WHOIS_INFO";
 
 	
 	@Override
 
+	/**
+	 * @fn protected void onCreate(Bundle savedInstanceState)
+	 * @brief Method called when activity is created. Sets the content view to activity_main. 
+	 * 
+	 * @param savedInstanceState
+	 */
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
 
 	@Override
+	
+	/**
+	 *
+	 * @fn public boolean onCreateOptionsMenu(Menu menu)
+	 * @brief Inflate the menu; this adds items to the action bar if it is present.
+	 * @param menu Meny to be created.
+	 * @return true
+	 */
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+		
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	
 	@Override
+	/**
+	 * @fn public boolean onOptionsItemSelected(MenuItem item)
+	 * @brief Handles menu item selection. 
+	 * Only menu item here is the "action_about" for the info activity.
+	 * @param item MenuItem that was selected
+	 * @return true  
+	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-		// Menu from http://developer.android.com/guide/topics/ui/menus.html#options-menu
+	
+		/// Menu from http://developer.android.com/guide/topics/ui/menus.html#options-menu
 	    switch (item.getItemId()) {
 	   
 	    case R.id.action_about:
@@ -193,12 +243,21 @@ public class MainActivity extends Activity {
     	startActivity(intent);
     	
     }	
-    	// Must run network on separate thread.
-    private String runLookupTask(LookupTask lookupTask, String lookupString) 
-    {
-    	
+    /**
+     * @fn  protected String runLookupTask(LookupTask lookupTask, String lookupString)
+     * @brief This function runs the various LookupTasks on a separate thread. 
+     * Android does not allow network calls to be made on the main thread, thus the need to create an AsyncTask to do the work.
+     * More from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+     * 
+     * @param lookupTask LookupTask that is being called
+     * @param lookupString String that is the hostname/ipaddress to be looked up.
+     * @return Result of lookup
+     * @return If lookup failed, display exception in a dialog and return null
+     */
     
-		
+    
+    protected String runLookupTask(LookupTask lookupTask, String lookupString) 
+    {
 		AsyncTask<String, Void, String> task = lookupTask.execute(lookupString);
     	String result = null;
 		try 
@@ -207,19 +266,12 @@ public class MainActivity extends Activity {
 			result = task.get();
 			if (result == null)
 			{
-				// if we didn't get a result, grab the exception and display it as a toast.
-				//Exception E = lookupTask.exception;
+				// if we didn't get a result, grab the exception and display it as a dialog.
 	    		String message = lookupTask.getExceptionMsg();// E.toString();
 	    		String title = lookupTask.getException().toString();
 				displayMessageDialog(message,title);
 	    	}
-			//else 
-			//{
-				// display the result in the appropriate field.
-				//resultText.setText(result);
-				//return result;
-				
-			//}
+
 		
 		}
 		catch (Exception taskE)
@@ -248,7 +300,7 @@ public class MainActivity extends Activity {
     }
     
     /**
-     * @fn public void displayMessageDialog(String message, String Title)
+     * @fn public void displayMessageDialog(String message, String title)
      * @brief Displays a message dialog to the user.
      * Displaying message dialogs from http://www.mkyong.com/android/android-alert-dialog-example/
      * @param message Message to display

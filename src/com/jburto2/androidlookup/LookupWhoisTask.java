@@ -11,7 +11,7 @@ import org.apache.commons.net.whois.WhoisClient;
 /**
  * @author James Burton
  * 
- * @class LookupAddressTask 
+ * @class LookupWhoisTask 
  * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
  * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
  * 
@@ -23,9 +23,9 @@ public class LookupWhoisTask extends LookupTask
 	/**
 	 * @fn protected String doInBackground(String... urls)
 	 * 
-	 * @brief This function uses java.net.InetAddress to lookup either the hostname or the ipaddress.
+	 * @brief This function uses org.apache.commons.net.whois.WhoisClient to get the whois information for a site.
 	 * 
-	 *  
+	 * Adapted from from http://www.mkyong.com/java/java-whois-example/
 	 * 
 	 * @param urls Array of strings that are arguments to the function. url[0] is the address to lookup.
 	 * @return String that represents either the IP address or the hostname if call succeeded.
@@ -38,7 +38,7 @@ public class LookupWhoisTask extends LookupTask
     {
     	String url = urls[0];
     	
-    	/// from http://www.mkyong.com/java/java-whois-example/
+    	
     	
     	StringBuilder result = new StringBuilder("");
     	 

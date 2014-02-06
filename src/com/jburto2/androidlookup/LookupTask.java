@@ -11,7 +11,8 @@ import android.os.AsyncTask;
  * @author James Burton
  * 
  * @class LookupTask 
- * @brief This class is an AsyncTask that looks up something. 
+ * @brief This class is an AsyncTask that looks up something. The lookup functionality classes inherit from this.
+ * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
  * 
  */
 public abstract class LookupTask extends AsyncTask<String, Void, String> 
@@ -27,14 +28,14 @@ public abstract class LookupTask extends AsyncTask<String, Void, String>
 	/**
 	 * @fn protected String doInBackground(String... urls)
 	 * 
-	 * @brief This function uses java.net.InetAddress to lookup either the hostname or the ipaddress.
+	 * @brief This function makes the function call in the background.
 	 * 
 	 *  
 	 * 
-	 * @param urls Array of strings that are arguments to the function. url[0] is the address to lookup.
-	 * @return String that represents either the IP address or the hostname if call succeeded.
+	 * @param urls Array of strings that are arguments to the function. 
+	 * @return String With the answer to the function call
 	 * @return null If the call failed. 
-	 * @exception Exception generated from InetAddress call is stored in the public instance variable exception.
+	 * @exception Exception generated from InetAddress call is stored in the instance variable exception.
 	 * 
 	 */
 	
@@ -56,11 +57,19 @@ public abstract class LookupTask extends AsyncTask<String, Void, String>
         // TODO: do something with the feed
     }
     
+    /**
+     * @fn public Exception getException()
+     * @return exception
+     */
     public Exception getException()
     {
     	return exception;
     }
     
+    /**
+     * @fn public String getExceptionMsg()
+     * @return String of the exception message.
+     */
     public String getExceptionMsg()
     {
     	return exception.getMessage();

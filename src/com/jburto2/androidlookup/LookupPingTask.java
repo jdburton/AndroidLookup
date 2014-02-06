@@ -13,9 +13,9 @@ import android.app.ProgressDialog;
 /**
  * @author James Burton
  * 
- * @class LookupAddressTask 
- * @brief This class is an LookupTask that looks up a hostname given an IP address and an IP address if given a hostname.
- * Adapted from http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+ * @class LookupPingTask 
+ * @brief This class is an LookupTask that uses java.net.InetAddress to see if a host is rechable or not.
+ * 
  * 
  */
 public class LookupPingTask extends LookupTask
@@ -25,13 +25,11 @@ public class LookupPingTask extends LookupTask
 	/**
 	 * @fn protected String doInBackground(String... urls)
 	 * 
-	 * @brief This function uses java.net.InetAddress to lookup either the hostname or the ipaddress.
-	 * 
-	 *  
+	 * @brief This function uses java.net.InetAddress to determine if the host is reachable.
 	 * 
 	 * @param urls Array of strings that are arguments to the function. url[0] is the address to lookup.
-	 * @return String that represents either the IP address or the hostname if call succeeded.
-	 * @return null If the call failed. 
+	 * @return "Yes" if host is reachable.
+	 * @return "No" if host is not reachable or if an exception is generated. 
 	 * @exception Exception generated from InetAddress call is stored in the public instance variable exception.
 	 * 
 	 */

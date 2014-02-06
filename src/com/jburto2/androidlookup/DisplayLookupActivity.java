@@ -34,6 +34,9 @@ public class DisplayLookupActivity extends Activity {
 	 * @fn onCreate(Bundle savedInstanceState)
 	 * @brief Called when the activity is created. 
 	 * 
+	 * When the DisplayLookupActivity is created, this method enables the home/up button and sets the view to the activity_display_lookup. 
+	 * The activity_display_lookup view contains a TableLayout. The table is filled dynamically by this method.
+	 * 
 	 * @param savedInstanceState The instance state  
 	 */
 	
@@ -204,9 +207,6 @@ public class DisplayLookupActivity extends Activity {
         //Horizontal Line
         h_line = TableLayoutUtils.createHorizontalLine(this,Color.rgb(51, 51, 51));
         tableLayout.addView(h_line);
-
-        
-        
               
 	}
 	
@@ -218,6 +218,7 @@ public class DisplayLookupActivity extends Activity {
 	 * @fn private void setupActionBar()
 	 * 
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 * This enables the up/home button to allow users to return to the main screen.
 	 * 
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -252,6 +253,7 @@ public class DisplayLookupActivity extends Activity {
 	 * 
 	 * @param item The MenuItem
 	 * @return If Home or Up, navigate up and return true.
+	 * @return Info, show the Info view. 
 	 * @return Otherwise, parent class functionality.
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -264,6 +266,7 @@ public class DisplayLookupActivity extends Activity {
 	    case R.id.action_about:
 	    	Intent intent = new Intent(this, DisplayInfoActivity.class);
 	    	startActivity(intent);
+	    	return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
