@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['mainactivity',['MainActivity',['../classcom_1_1jburto2_1_1androidlookup_1_1_main_activity.html',1,'com::jburto2::androidlookup']]],
-  ['menu',['menu',['../classcom_1_1jburto2_1_1androidlookup_1_1_r_1_1menu.html',1,'com::jburto2::androidlookup::R']]]
+  ['tablelayoututils',['TableLayoutUtils',['../classcom_1_1jburto2_1_1androidlookup_1_1_table_layout_utils.html',1,'com::jburto2::androidlookup']]]
 ];

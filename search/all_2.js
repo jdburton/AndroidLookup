@@ -1,9 +1,8 @@
 var searchData=
 [
   ['androidlookup',['androidlookup',['../namespacecom_1_1jburto2_1_1androidlookup.html',1,'com::jburto2']]],
-  ['clear',['clear',['../classcom_1_1jburto2_1_1androidlookup_1_1_r_1_1string.html#a4229ccaa9019cc863379fe2dd9d80534',1,'com::jburto2::androidlookup::R::string']]],
   ['clearhostnamemessage',['clearHostNameMessage',['../classcom_1_1jburto2_1_1androidlookup_1_1_main_activity.html#a839853d701ddfd126ddf5f137f1da599',1,'com::jburto2::androidlookup::MainActivity']]],
-  ['cname',['CNAME',['../classcom_1_1jburto2_1_1androidlookup_1_1_main_activity.html#aa730cc5e58104fcc125e652c5e24470e',1,'com.jburto2.androidlookup.MainActivity.CNAME()'],['../classcom_1_1jburto2_1_1androidlookup_1_1_r_1_1string.html#aecf3b8cafcfc530c2b4366c7933efb8e',1,'com.jburto2.androidlookup.R.string.cname()']]],
+  ['cname',['CNAME',['../classcom_1_1jburto2_1_1androidlookup_1_1_main_activity.html#aa730cc5e58104fcc125e652c5e24470e',1,'com::jburto2::androidlookup::MainActivity']]],
   ['com',['com',['../namespacecom.html',1,'']]],
   ['createhorizontalline',['createHorizontalLine',['../classcom_1_1jburto2_1_1androidlookup_1_1_table_layout_utils.html#a893683b6a8b5127103b262d0fb1c3f88',1,'com::jburto2::androidlookup::TableLayoutUtils']]],
   ['createhtmlview',['createHtmlView',['../classcom_1_1jburto2_1_1androidlookup_1_1_table_layout_utils.html#a97ae56290153aa1c8ce092f10bc12aeb',1,'com::jburto2::androidlookup::TableLayoutUtils']]],
