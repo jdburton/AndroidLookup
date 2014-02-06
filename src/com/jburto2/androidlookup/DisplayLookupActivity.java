@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 /**
  * @author jburton
+ * @class DisplayLookupActivity
+ * @brief This class controls activities that displays the results from the lookup
  *
  */
 public class DisplayLookupActivity extends Activity {

@@ -16,7 +16,7 @@ import android.webkit.WebView;
  *
  * @class DisplayInfoActivity
  * 
- * @brief This class controls activities related to the Info View. 
+ * @brief This class controls activities that displays the information page. 
  */
 
 public class DisplayInfoActivity extends Activity {
