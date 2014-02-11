@@ -19,8 +19,12 @@ The whois functionality displays "whois" information for a given host. The "whoi
 <img class="size-large wp-image-74" alt="Screen Shot 2014-02-05 at 9.28.44 PM" src="http://jamesdalyburton.files.wordpress.com/2014/02/screen-shot-2014-02-05-at-9-28-44-pm.jpg?w=605" width="605" height="685" />
 <p>
 
-<h1>Source</h1>
+<h1>Downloads</h1>
 AndroidLookup 0.2 is an extension of the AndroidLookup 0.1 utility.
+<p>
+Binary is located at 
+<p>
+<a href="http://jdburton.github.io/AndroidLookup/AndroidLookup.apk">http://jdburton.github.io/AndroidLookup/AndroidLookup.apk</a>
 <p>
 Source code is at GitHub:
 <p>
@@ -29,6 +33,7 @@ Source code is at GitHub:
 Doxygen documentation for the Java classes is located at:
 <p>
 <a href="http://jdburton.github.io/AndroidLookup/index.html">http://jdburton.github.io/AndroidLookup/index.html</a>
+
 <p>
 <h1>Acknowledgements</h1>
 <h2>Android Lookup 0.2</h2>
